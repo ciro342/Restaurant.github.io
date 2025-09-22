@@ -752,29 +752,7 @@
             });
         });
 
-        // Formulario de reserva
-        document.querySelector('form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Animación de éxito
-            const button = this.querySelector('button[type="submit"]');
-            const originalText = button.textContent;
-            
-            button.textContent = 'Procesando...';
-            button.disabled = true;
-            
-            setTimeout(() => {
-                button.textContent = '¡Reserva Enviada!';
-                button.classList.add('bg-green-600');
-                
-                setTimeout(() => {
-                    button.textContent = originalText;
-                    button.disabled = false;
-                    button.classList.remove('bg-green-600');
-                    this.reset();
-                }, 3000);
-            }, 2000);
-        });
+        
     </script>
 </body>
 </html>
