@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restaurante Moderno - Auténtica Experiencia Culinaria</title>
+    <meta name="description" content="Descubre la auténtica cocina en Restaurante Moderno. Reserva tu mesa y disfruta de ingredientes frescos, servicio excepcional y una atmósfera acogedora." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="css/main.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary: #7C2D12;
+            --primary-light: #A16207;
+            --accent: #D97706;
+            --accent-light: #F59E0B;
+            --sage: #6B7280;
+            --sage-light: #9CA3AF;
+            --cream: #FEF7ED;
+            --warm-white: #FFFBF5;
+            --warm-gray: #F5F5F0;
+            --dark-brown: #1C1917;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--warm-white) 0%, var(--cream) 100%);
+            color: var(--dark-brown);
+            overflow-x: hidden;
+        }
+
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-dancing { font-family: 'Dancing Script', cursive; }
+
+        /* Animaciones mejoradas */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(1deg); }
+            66% { transform: translateY(5px) rotate(-1deg); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(60px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-slide-up { animation: slideUp 0.8s ease-out; }
+        .animate-fade-scale { animation: fadeInScale 0.6s ease-out; }
+        
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            background-size: 1000px 100%;
+            animation: shimmer 2s infinite;
+        }
+
+        /* Cards con efectos glassmorphism */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .food-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(124, 45, 18, 0.1);
+        }
+
+        .food-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(124, 45, 18, 0.15);
+        }
+
+        /* Gradientes mejorados */
+        .hero-gradient {
+            background: linear-gradient(135deg, 
+                rgba(124, 45, 18, 0.9) 0%, 
+                rgba(161, 98, 7, 0.8) 50%, 
+                rgba(217, 119, 6, 0.7) 100%);
+        }
+
+        .section-gradient {
+            background: linear-gradient(to bottom, var(--warm-white), var(--warm-gray));
+        }
+
+        /* Efectos de texto */
+        .text-gradient {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Botones mejorados */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(124, 45, 18, 0.3);
+        }
+
+        /* Scroll animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-animate.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Parallax effect */
+        .parallax {
+            transform: translateZ(0);
+        }
+
+        /* Menu filter buttons */
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(124, 45, 18, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(124, 45, 18, 0.3);
+        }
+
+        /* Navegación con efecto glassmorphism */
+        .nav-glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(124, 45, 18, 0.1);
+        }
+
+        /* Testimonials con efectos especiales */
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(15px);
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateX(10px);
+            box-shadow: -5px 5px 20px rgba(217, 119, 6, 0.2);
+        }
+
+        /* Imágenes con overlay dinámico */
+        .image-overlay {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(124, 45, 18, 0.3) 0%, 
+                rgba(217, 119, 6, 0.2) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .image-overlay:hover::before {
+            opacity: 1;
+        }
+
+        .image-overlay img {
+            transition: transform 0.4s ease;
+        }
+
+        .image-overlay:hover img {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Partículas de fondo -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute top-10 left-10 w-2 h-2 bg-amber-400 rounded-full animate-float opacity-30"></div>
+        <div class="absolute top-32 right-20 w-1 h-1 bg-orange-500 rounded-full animate-float opacity-40" style="animation-delay: 1s;"></div>
+        <div class="absolute bottom-20 left-1/4 w-3 h-3 bg-amber-300 rounded-full animate-float opacity-20" style="animation-delay: 2s;"></div>
+        <div class="absolute bottom-40 right-1/3 w-1 h-1 bg-orange-400 rounded-full animate-float opacity-50" style="animation-delay: 3s;"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 nav-glass z-40 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-playfair font-bold text-gradient">Restaurante Moderno</h1>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#inicio" class="nav-link text-stone-700 hover:text-amber-700 transition-colors font-medium">Inicio</a>
+                    <a href="#nosotros" class="nav-link text-stone-700 hover:text-amber-700 transition-colors font-medium">Nosotros</a>
+                    <a href="#menu" class="nav-link text-stone-700 hover:text-amber-700 transition-colors font-medium">Menú</a>
+                    <a href="#galeria" class="nav-link text-stone-700 hover:text-amber-700 transition-colors font-medium">Galería</a>
+                    <a href="#reservas" class="btn-primary text-white px-6 py-2 rounded-full font-semibold">Contactanos</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop" 
+                 alt="Restaurante elegante" 
+                 class="w-full h-full object-cover transition-transform duration-[10s] ease-out hover:scale-110" />
+            <div class="absolute inset-0 hero-gradient"></div>
+        </div>
+
+        <!-- Elementos flotantes decorativos -->
+        <div class="absolute top-20 left-10 w-20 h-20 bg-gradient-to-br from-amber-400/30 to-orange-500/30 rounded-full animate-float blur-sm"></div>
+        <div class="absolute bottom-32 right-16 w-16 h-16 bg-gradient-to-br from-orange-400/20 to-red-500/20 rounded-full animate-float blur-sm" style="animation-delay: 2s;"></div>
+
+        <div class="relative z-10 text-center text-white max-w-5xl mx-auto px-4">
+            <div class="animate-slide-up">
+                <h1 class="text-6xl md:text-8xl font-playfair font-bold mb-6">
+                    Restaurante
+                    <span class="block text-transparent bg-gradient-to-r from-amber-300 to-orange-400 bg-clip-text font-dancing text-7xl md:text-9xl">
+                        Moderno
+                    </span>
+                </h1>
+            </div>
+            
+            <div class="animate-slide-up" style="animation-delay: 0.2s;">
+                <p class="text-xl md:text-2xl mb-8 font-light leading-relaxed max-w-3xl mx-auto">
+                    Una experiencia culinaria auténtica donde cada plato cuenta una historia
+                    <span class="block mt-2 text-amber-200">de sabores excepcionales y tradición renovada</span>
+                </p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-6 justify-center animate-slide-up" style="animation-delay: 0.4s;">
+                <a href="#menu" class="glass-card px-10 py-4 rounded-full text-lg font-semibold hover:bg-white/20 transition-all duration-300">
+                    Explorar Menú
+                </a>
+            </div>
+
+            <div class="mt-12 animate-slide-up" style="animation-delay: 0.6s;">
+                <div class="inline-flex items-center gap-3 glass-card rounded-full px-6 py-3">
+                    <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                    <span class="text-sm font-medium">Disponible ahora • Respuesta en menos de 5 minutos</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <div class="glass-card p-2 rounded-full">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section con diseño mejorado -->
+    <section id="nosotros" class="py-20 section-gradient relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="space-y-8 scroll-animate">
+                    <div>
+                        <h2 class="text-5xl md:text-6xl font-playfair font-bold text-gradient mb-6">
+                            Nuestra Historia
+                        </h2>
+                        <div class="w-24 h-1 bg-gradient-to-r from-amber-600 to-orange-500 rounded-full mb-8"></div>
+                    </div>
+                    
+                    <p class="text-lg text-stone-600 leading-relaxed">
+                        Desde 2015, hemos sido pioneros en la fusión de tradición culinaria mediterránea 
+                        con técnicas innovadoras. Nuestro chef ejecutivo, <strong>María González</strong>, 
+                        ha transformado cada plato en una experiencia sensorial única.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="glass-card p-6 rounded-2xl text-center transform hover:scale-105 transition-all duration-300">
+                            <div class="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-white font-bold text-xl">9+</span>
+                            </div>
+                            <h3 class="font-semibold text-stone-800">Años de Experiencia</h3>
+                        </div>
+                        
+                        <div class="glass-card p-6 rounded-2xl text-center transform hover:scale-105 transition-all duration-300">
+                            <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-white font-bold text-lg">A+</span>
+                            </div>
+                            <h3 class="font-semibold text-stone-800">Certificación Sanitaria</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative scroll-animate">
+                    <div class="image-overlay rounded-3xl overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop" 
+                             alt="Chef María González" 
+                             class="w-full h-[500px] object-cover" />
+                    </div>
+                    
+                    <!-- Elemento decorativo flotante -->
+                    <div class="absolute -top-6 -right-6 glass-card p-4 rounded-2xl animate-float">
+                        <div class="text-center">
+                            <div class="text-2xl font-playfair font-bold text-amber-700">4.9★</div>
+                            <div class="text-sm text-stone-600">Puntuación</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section mejorado -->
+    <section id="menu" class="py-20 bg-gradient-to-br from-amber-50 to-orange-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-animate">
+                <h2 class="text-5xl md:text-6xl font-playfair font-bold text-gradient mb-6">
+                    Nuestro Menú
+                </h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-amber-600 to-orange-500 rounded-full mx-auto mb-8"></div>
+                <p class="text-xl text-stone-600 max-w-3xl mx-auto leading-relaxed">
+                    Cada plato es una obra de arte culinaria, preparada con ingredientes 
+                    seleccionados y técnicas que despiertan todos los sentidos
+                </p>
+            </div>
+
+            <!-- Menu Filter Buttons mejorados -->
+            <div class="flex flex-wrap justify-center gap-4 mb-16 scroll-animate">
+                <button class="filter-btn active px-8 py-3 rounded-full font-semibold transition-all duration-300" data-category="all">
+                    Todos los Platos
+                </button>
+                <button class="filter-btn px-8 py-3 rounded-full font-semibold transition-all duration-300" data-category="appetizers">
+                    Entrantes
+                </button>
+                <button class="filter-btn px-8 py-3 rounded-full font-semibold transition-all duration-300" data-category="mains">
+                    Principales
+                </button>
+                <button class="filter-btn px-8 py-3 rounded-full font-semibold transition-all duration-300" data-category="desserts">
+                    Postres
+                </button>
+            </div>
+
+            <!-- Menu Items Grid mejorado -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="menu-items">
+                <!-- Appetizer -->
+                <div class="menu-item food-card p-0 rounded-2xl overflow-hidden" data-category="appetizers">
+                    <div class="image-overlay h-48">
+                        <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=2070&auto=format&fit=crop" 
+                             alt="Bruschetta Mediterránea" 
+                             class="w-full h-full object-cover" />
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-playfair font-semibold text-stone-800">Bruschetta Mediterránea</h3>
+                            <span class="text-2xl font-bold text-amber-600">€12</span>
+                        </div>
+                        <p class="text-stone-600 mb-4 leading-relaxed">
+                            Tomate cherry confitado, albahaca fresca, burrata cremosa y reducción de balsámico
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                                Vegetariano
+                            </span>
+                            <span class="text-stone-500 text-sm">250g</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Course -->
+                <div class="menu-item food-card p-0 rounded-2xl overflow-hidden" data-category="mains">
+                    <div class="image-overlay h-48">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?q=80&w=2081&auto=format&fit=crop" 
+                             alt="Paella Valenciana" 
+                             class="w-full h-full object-cover" />
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-playfair font-semibold text-stone-800">Paella Valenciana</h3>
+                            <span class="text-2xl font-bold text-amber-600">€28</span>
+                        </div>
+                        <p class="text-stone-600 mb-4 leading-relaxed">
+                            Arroz bomba, pollo de corral, conejo, judías verdes, garrofón y azafrán auténtico
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm font-medium">
+                                Especialidad de la Casa
+                            </span>
+                            <span class="text-stone-500 text-sm">400g</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dessert -->
+                <div class="menu-item food-card p-0 rounded-2xl overflow-hidden" data-category="desserts">
+                    <div class="image-overlay h-48">
+                        <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?q=80&w=2076&auto=format&fit=crop" 
+                             alt="Tiramisú Casero" 
+                             class="w-full h-full object-cover" />
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-playfair font-semibold text-stone-800">Tiramisú de Autor</h3>
+                            <span class="text-2xl font-bold text-amber-600">€8</span>
+                        </div>
+                        <p class="text-stone-600 mb-4 leading-relaxed">
+                            Mascarpone artesanal, café espresso, cacao venezolano y bizcochos caseros
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">
+                                Hecho en Casa
+                            </span>
+                            <span class="text-stone-500 text-sm">150g</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials mejorados -->
+    <section class="py-20 bg-gradient-to-br from-stone-100 to-amber-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-animate">
+                <h2 class="text-5xl font-playfair font-bold text-gradient mb-6">
+                    Experiencias Únicas
+                </h2>
+                <div class="flex items-center justify-center gap-2 mb-8">
+                    <div class="flex text-amber-500">
+                        <span class="text-3xl">★★★★★</span>
+                    </div>
+                    <span class="text-xl font-semibold text-stone-700 ml-3">4.9/5</span>
+                    <span class="text-stone-600">(247 reseñas)</span>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="testimonial-card p-8 rounded-2xl scroll-animate">
+                    <div class="flex items-center gap-4 mb-6">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?q=80&w=2787&auto=format&fit=crop" 
+                             alt="Ana Martínez" 
+                             class="w-16 h-16 rounded-full object-cover shadow-lg" />
+                        <div>
+                            <h4 class="font-semibold text-stone-800 text-lg">Ana Martínez</h4>
+                            <div class="text-amber-500">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-stone-600 italic leading-relaxed mb-4">
+                        "Una experiencia gastronómica inolvidable. Cada detalle cuidado al máximo 
+                        y un servicio que supera todas las expectativas."
+                    </p>
+                    <div class="text-sm text-stone-500">
+                        Hace 2 días • <span class="text-amber-600 font-medium">Paella Valenciana</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-card p-8 rounded-2xl scroll-animate" style="animation-delay: 0.2s;">
+                    <div class="flex items-center gap-4 mb-6">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2940&auto=format&fit=crop" 
+                             alt="Carlos Ruiz" 
+                             class="w-16 h-16 rounded-full object-cover shadow-lg" />
+                        <div>
+                            <h4 class="font-semibold text-stone-800 text-lg">Carlos Ruiz</h4>
+                            <div class="text-amber-500">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-stone-600 italic leading-relaxed mb-4">
+                        "La fusión perfecta entre tradición e innovación. Los sabores te transportan 
+                        a un viaje culinario extraordinario."
+                    </p>
+                    <div class="text-sm text-stone-500">
+                        Hace 1 semana • <span class="text-amber-600 font-medium">Menú Degustación</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-card p-8 rounded-2xl scroll-animate" style="animation-delay: 0.4s;">
+                    <div class="flex items-center gap-4 mb-6">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2940&auto=format&fit=crop" 
+                             alt="María López" 
+                             class="w-16 h-16 rounded-full object-cover shadow-lg" />
+                        <div>
+                            <h4 class="font-semibold text-stone-800 text-lg">María López</h4>
+                            <div class="text-amber-500">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-stone-600 italic leading-relaxed mb-4">
+                        "Ambiente mágico, presentación impecable y sabores que despiertan emociones. 
+                        Sin duda, nuestro restaurante favorito."
+                    </p>
+                    <div class="text-sm text-stone-500">
+                        Hace 3 días • <span class="text-amber-600 font-medium">Cena Romántica</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp Button mejorado -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <a href="https://wa.me/3125270787?text=Hola,%20me%20gustaría%20hacer%20una%20reserva" 
+           class="flex items-center gap-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-4 rounded-full font-semibold transform transition-all duration-300 hover:scale-110 hover:shadow-2xl animate-pulse shadow-lg">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.106"/>
+            </svg>
+            <span class="hidden sm:inline">Hacer Domicilio</span>
+            <span class="sm:hidden">Chat</span>
+        </a>
+        <div class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center animate-bounce">
+            1
+        </div>
+    </div>
+
+    <!-- Gallery Section -->
+    <section id="galeria" class="py-20 bg-gradient-to-br from-amber-50 to-stone-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-animate">
+                <h2 class="text-5xl font-playfair font-bold text-gradient mb-6">
+                    Ambiente del Restaurante
+                </h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-amber-600 to-orange-500 rounded-full mx-auto mb-8"></div>
+                <p class="text-xl text-stone-600 max-w-3xl mx-auto">
+                    Descubre la atmósfera única que hace de cada visita una experiencia memorable
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="col-span-2 row-span-2 scroll-animate">
+                    <div class="image-overlay h-full rounded-2xl overflow-hidden shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop" 
+                             alt="Interior principal" 
+                             class="w-full h-full object-cover" />
+                    </div>
+                </div>
+                
+                <div class="scroll-animate" style="animation-delay: 0.1s;">
+                    <div class="image-overlay aspect-square rounded-2xl overflow-hidden shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop" 
+                             alt="Mesa preparada" 
+                             class="w-full h-full object-cover" />
+                    </div>
+                </div>
+                
+                <div class="scroll-animate" style="animation-delay: 0.2s;">
+                    <div class="image-overlay aspect-square rounded-2xl overflow-hidden shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1559329007-40df8a9345d8?q=80&w=2088&auto=format&fit=crop" 
+                             alt="Barra del bar" 
+                             class="w-full h-full object-cover" />
+                    </div>
+                </div>
+                
+                <div class="scroll-animate" style="animation-delay: 0.3s;">
+                    <div class="image-overlay aspect-square rounded-2xl overflow-hidden shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=2070&auto=format&fit=crop" 
+                             alt="Terraza exterior" 
+                             class="w-full h-full object-cover" />
+                    </div>
+                </div>
+                
+                <div class="scroll-animate" style="animation-delay: 0.4s;">
+                    <div class="image-overlay aspect-square rounded-2xl overflow-hidden shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=2070&auto=format&fit=crop" 
+                             alt="Cocina abierta" 
+                             class="w-full h-full object-cover" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Section -->
+    <section id="reservas" class="py-20 bg-gradient-to-br from-stone-800 to-amber-900 text-white relative overflow-hidden">
+        <!-- Elementos decorativos de fondo -->
+        <div class="absolute top-0 left-0 w-full h-full">
+            <div class="absolute top-10 left-10 w-32 h-32 bg-amber-500/10 rounded-full blur-xl animate-float"></div>
+            <div class="absolute bottom-20 right-16 w-40 h-40 bg-orange-500/10 rounded-full blur-xl animate-float" style="animation-delay: 2s;"></div>
+        </div>
+
+        
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-br from-stone-900 to-amber-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-playfair font-bold text-gradient mb-4">Restaurante Moderno</h3>
+                <p class="text-amber-200 max-w-2xl mx-auto">
+                    Más que un restaurante, somos creadores de experiencias culinarias memorables
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <h4 class="font-semibold text-lg mb-2">Ubicación</h4>
+                    <p class="text-amber-200">Calle Gran Vía, 123<br />28013 Madrid, España</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                        </svg>
+                    </div>
+                    <h4 class="font-semibold text-lg mb-2">Reservas</h4>
+                    <p class="text-amber-200">+34 91 234 56 78<br />Abierto 7 días a la semana</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <h4 class="font-semibold text-lg mb-2">Horarios</h4>
+                    <p class="text-amber-200">Lun-Vie: 12:00-00:00<br />Sáb-Dom: 13:00-01:00</p>
+                </div>
+            </div>
+
+            <div class="border-t border-amber-800/30 pt-8 text-center">
+                <div class="flex justify-center space-x-6 mb-6">
+                    <a href="#" class="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12.056 0C5.5 0 .056 5.5.056 12.056s5.444 12.056 12 12.056 12-5.5 12-12.056S18.612 0 12.056 0zm5.338 8.663l-1.107 5.825c-.083.438-.302.546-.612.34l-1.7-1.253-1.012 1.012c-.112.112-.206.206-.424.206l.15-2.138 3.963-3.583c.175-.15-.037-.237-.269-.087l-4.9 3.088-2.113-.663c-.462-.15-.475-.462.1-.687l8.238-3.175c.387-.15.725.087.6.687z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.012.001z"/>
+                        </svg>
+                    </a>
+                </div>
+                <p class="text-amber-200/70">
+                    © 2025 Restaurante Moderno. Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer para animaciones de scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        // Observar todos los elementos con clase scroll-animate
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Menu filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const menuItems = document.querySelectorAll('.menu-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const category = button.dataset.category;
+                
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                // Filter items
+                menuItems.forEach(item => {
+                    if (category === 'all' || item.dataset.category === category) {
+                        item.style.display = 'block';
+                        item.style.animation = 'fadeInScale 0.5s ease-out';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Smooth scrolling para navegación
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Efecto parallax sutil en el scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            
+            document.querySelectorAll('.parallax').forEach(element => {
+                element.style.transform = `translateY(${rate}px)`;
+            });
+        });
+
+        // Formulario de reserva
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Animación de éxito
+            const button = this.querySelector('button[type="submit"]');
+            const originalText = button.textContent;
+            
+            button.textContent = 'Procesando...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.textContent = '¡Reserva Enviada!';
+                button.classList.add('bg-green-600');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.disabled = false;
+                    button.classList.remove('bg-green-600');
+                    this.reset();
+                }, 3000);
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
